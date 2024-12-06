@@ -1,0 +1,26 @@
+query me {
+  me {
+    id
+    display
+    contact
+    gender
+    role {
+      name
+      id
+    }
+    createdDate
+    isActive
+    ownerId
+    startingAt
+    bankName
+    bankAcc
+    bankType
+    position
+    baseSalary
+    type
+    profile
+    username
+    fromTime
+    toTime
+  }
+}
