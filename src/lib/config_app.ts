@@ -2,6 +2,7 @@ export const config_app = {
   public: {
     assets: {
       url: process.env.NEXT_PUBLIC_ENDPOINT,
+      print: '/assets/printing.css',
       logo: '/assets/logo.png',
       connect_icon: '/assets/connect.png',
       dev: process.env.NODE_ENV,

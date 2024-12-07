@@ -1,12 +1,29 @@
 {
   "HomePage": {
     "title": "សួស្តីពិភពលោក!",
-    "about": "ចូលទៅកាន់ទំព័រអំពី"
+    "about": "ចូលទៅកាន់ទំព័រអំពី",
+    "all": "ទាំងអស់"
   },
   "LoginPage": {
     "username": "ឈ្មោះអ្នកប្រើប្រាស់",
     "password": "ពាក្យសម្ងាត់",
     "signin": "ចូល",
     "sign_in_your_acc": "ចូលគណនីរបស់អ្នក។"
+  },
+  "OrderPop": {
+    "title": "{count} មុខទំនិញបានជ្រើសរើស"
+  },
+  "CheckoutPage": {
+    "title": "ការទូទាត់",
+    "invoice": "វិក្កយបត្រ",
+    "cashier": "អ្នកគិតលុយ",
+    "order_summary": "សង្ខេបនៃការបញ្ជាទិញ",
+    "total": "សរុប",
+    "vat": "VAT (Included)",
+    "received": "បានទទួល",
+    "return": "ត្រឡប់ទៅអតិថិជនវិញ",
+    "paid_type": "ប្រភេទបង់ប្រាក់",
+    "currency": "រូបិយប័ណ្ណ",
+    "checkout": "ពិនិត្យចេញ"
   }
 }

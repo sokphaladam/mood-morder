@@ -1,12 +1,29 @@
 {
   "HomePage": {
     "title": "Hello world!",
-    "about": "Go to the about page"
+    "about": "Go to the about page",
+    "all": "All"
   },
   "LoginPage": {
     "username": "Username",
     "password": "Password",
     "signin": "Sign in",
     "sign_in_your_acc": "Sign in to your account"
+  },
+  "OrderPop": {
+    "title": "{count} Items selected"
+  },
+  "CheckoutPage": {
+    "title": "Payout",
+    "invoice": "Invoice",
+    "cashier": "Cashier",
+    "order_summary": "Order Summary",
+    "total": "Total",
+    "vat": "VAT (Included)",
+    "received": "Received",
+    "return": "Return to Customer",
+    "paid_type": "Paid Type",
+    "currency": "Currency",
+    "checkout": "Checkout"
   }
 }

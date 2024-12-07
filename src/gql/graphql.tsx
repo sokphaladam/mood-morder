@@ -597,7 +597,14 @@ export type Order = {
 
 export type OrderInput = {
   address?: InputMaybe<Scalars['String']['input']>;
+  amount?: InputMaybe<Scalars['String']['input']>;
+  bankId?: InputMaybe<Scalars['Int']['input']>;
+  bankType?: InputMaybe<Scalars['String']['input']>;
   carts?: InputMaybe<Array<InputMaybe<CartItemInput>>>;
+  currency?: InputMaybe<Scalars['String']['input']>;
+  customerPaid?: InputMaybe<Scalars['String']['input']>;
+  discount?: InputMaybe<Scalars['Float']['input']>;
+  invoice?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   set?: InputMaybe<Scalars['String']['input']>;
   uuid?: InputMaybe<Scalars['String']['input']>;
@@ -1237,6 +1244,13 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login?: string | null };
 
+export type CreateOrderMutationVariables = Exact<{
+  data?: InputMaybe<OrderInput>;
+}>;
+
+
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder?: boolean | null };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1252,6 +1266,21 @@ export type ProductListQueryVariables = Exact<{
 
 
 export type ProductListQuery = { __typename?: 'Query', productList?: Array<{ __typename?: 'Product', id?: number | null, code?: string | null, title?: string | null, status?: Status_Product | null, images?: string | null, type?: Array<Type_Product | null> | null, category?: { __typename?: 'Category', id?: number | null, name?: string | null } | null, sku?: Array<{ __typename?: 'SKU', id?: number | null, name?: string | null, price?: number | null, status?: Status_Product | null, discount?: number | null, image?: string | null } | null> | null } | null> | null };
+
+export type CategoryListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoryListQuery = { __typename?: 'Query', categoryList?: any | null };
+
+export type SettingListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SettingListQuery = { __typename?: 'Query', settingList?: Array<{ __typename?: 'Setting', value?: string | null, type?: string | null, option?: string | null } | null> | null };
+
+export type GetbankListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetbankListQuery = { __typename?: 'Query', getbankList?: Array<{ __typename?: 'BankInfo', id?: number | null, name?: string | null } | null> | null };
 
 
 export const LoginDocument = gql`
@@ -1286,6 +1315,37 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const CreateOrderDocument = gql`
+    mutation createOrder($data: OrderInput) {
+  createOrder(data: $data)
+}
+    `;
+export type CreateOrderMutationFn = Apollo.MutationFunction<CreateOrderMutation, CreateOrderMutationVariables>;
+
+/**
+ * __useCreateOrderMutation__
+ *
+ * To run a mutation, you first call `useCreateOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOrderMutation, { data, loading, error }] = useCreateOrderMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateOrderMutation(baseOptions?: Apollo.MutationHookOptions<CreateOrderMutation, CreateOrderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateOrderMutation, CreateOrderMutationVariables>(CreateOrderDocument, options);
+      }
+export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>;
+export type CreateOrderMutationResult = Apollo.MutationResult<CreateOrderMutation>;
+export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<CreateOrderMutation, CreateOrderMutationVariables>;
 export const MeDocument = gql`
     query me {
   me {
@@ -1413,3 +1473,121 @@ export type ProductListQueryHookResult = ReturnType<typeof useProductListQuery>;
 export type ProductListLazyQueryHookResult = ReturnType<typeof useProductListLazyQuery>;
 export type ProductListSuspenseQueryHookResult = ReturnType<typeof useProductListSuspenseQuery>;
 export type ProductListQueryResult = Apollo.QueryResult<ProductListQuery, ProductListQueryVariables>;
+export const CategoryListDocument = gql`
+    query categoryList {
+  categoryList
+}
+    `;
+
+/**
+ * __useCategoryListQuery__
+ *
+ * To run a query within a React component, call `useCategoryListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoryListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoryListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCategoryListQuery(baseOptions?: Apollo.QueryHookOptions<CategoryListQuery, CategoryListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CategoryListQuery, CategoryListQueryVariables>(CategoryListDocument, options);
+      }
+export function useCategoryListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoryListQuery, CategoryListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CategoryListQuery, CategoryListQueryVariables>(CategoryListDocument, options);
+        }
+export function useCategoryListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CategoryListQuery, CategoryListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CategoryListQuery, CategoryListQueryVariables>(CategoryListDocument, options);
+        }
+export type CategoryListQueryHookResult = ReturnType<typeof useCategoryListQuery>;
+export type CategoryListLazyQueryHookResult = ReturnType<typeof useCategoryListLazyQuery>;
+export type CategoryListSuspenseQueryHookResult = ReturnType<typeof useCategoryListSuspenseQuery>;
+export type CategoryListQueryResult = Apollo.QueryResult<CategoryListQuery, CategoryListQueryVariables>;
+export const SettingListDocument = gql`
+    query settingList {
+  settingList {
+    value
+    type
+    option
+  }
+}
+    `;
+
+/**
+ * __useSettingListQuery__
+ *
+ * To run a query within a React component, call `useSettingListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSettingListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSettingListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSettingListQuery(baseOptions?: Apollo.QueryHookOptions<SettingListQuery, SettingListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SettingListQuery, SettingListQueryVariables>(SettingListDocument, options);
+      }
+export function useSettingListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SettingListQuery, SettingListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SettingListQuery, SettingListQueryVariables>(SettingListDocument, options);
+        }
+export function useSettingListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SettingListQuery, SettingListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SettingListQuery, SettingListQueryVariables>(SettingListDocument, options);
+        }
+export type SettingListQueryHookResult = ReturnType<typeof useSettingListQuery>;
+export type SettingListLazyQueryHookResult = ReturnType<typeof useSettingListLazyQuery>;
+export type SettingListSuspenseQueryHookResult = ReturnType<typeof useSettingListSuspenseQuery>;
+export type SettingListQueryResult = Apollo.QueryResult<SettingListQuery, SettingListQueryVariables>;
+export const GetbankListDocument = gql`
+    query getbankList {
+  getbankList {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetbankListQuery__
+ *
+ * To run a query within a React component, call `useGetbankListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetbankListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetbankListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetbankListQuery(baseOptions?: Apollo.QueryHookOptions<GetbankListQuery, GetbankListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetbankListQuery, GetbankListQueryVariables>(GetbankListDocument, options);
+      }
+export function useGetbankListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetbankListQuery, GetbankListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetbankListQuery, GetbankListQueryVariables>(GetbankListDocument, options);
+        }
+export function useGetbankListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetbankListQuery, GetbankListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetbankListQuery, GetbankListQueryVariables>(GetbankListDocument, options);
+        }
+export type GetbankListQueryHookResult = ReturnType<typeof useGetbankListQuery>;
+export type GetbankListLazyQueryHookResult = ReturnType<typeof useGetbankListLazyQuery>;
+export type GetbankListSuspenseQueryHookResult = ReturnType<typeof useGetbankListSuspenseQuery>;
+export type GetbankListQueryResult = Apollo.QueryResult<GetbankListQuery, GetbankListQueryVariables>;

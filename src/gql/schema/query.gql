@@ -47,3 +47,22 @@ query productList($offset: Int, $limit: Int, $code: String, $schedule: Boolean, 
     type
   }
 }
+
+query categoryList {
+  categoryList
+}
+
+query settingList {
+  settingList {
+    value
+    type
+    option
+  }
+}
+
+query getbankList {
+  getbankList {
+    id
+    name
+  }
+}

@@ -1,38 +1,18 @@
-import { useProductListQuery } from "@/gql/graphql";
-import Image from "next/image";
+import { Product } from "@/gql/graphql";
+import { ProductItem } from "./ProductItem";
 
-function SkeltonProductItem () {
-  return (
-    <div></div>
-  )
+interface Props {
+  products: any[]
 }
 
-export function ProductList(){
-  const {data, loading} = useProductListQuery();
-
-  if(loading || !data) {
-    return (
-      <div>
-        <SkeltonProductItem/>
-      </div>
-    )
-  }
-  
+export function ProductList(props: Props) {
   return (
-    <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-2">
+    <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-2 p-4">
       {
-        data.productList?.map((product, index) => {
-          return product?.sku?.map((sku, i) => {
+        props.products.flat().map((product: Product, index) => {
+          return product?.sku?.map((sku, i: number) => {
             return (
-              <div key={index+''+i} className="w-full h-[150px]">
-                <Image
-                  alt=""
-                  src={sku?.image || product.images || ''}
-                  width={180}
-                  height={180}
-                  className="aspect-square object-contain w-fit h-[180px]"
-                />
-              </div>
+              <ProductItem key={index + '' + i} product={product} sku={sku ? sku : {}} />
             )
           })
         })
