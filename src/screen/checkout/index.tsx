@@ -22,6 +22,7 @@ export function CheckoutScreen() {
 
   const [bank, setBank] = useState(1);
   const [currency, setCurreny] = useState('USD')
+  const [isCheckout, setCheckOut] = useState(false);
 
   const queryBank = useGetbankListQuery();
   const [create] = useCreateOrderMutation();
@@ -73,14 +74,12 @@ export function CheckoutScreen() {
         localStorage.setItem('invoice', JSON.stringify(inv));
         setInvoice(inv);
         refPrint.current?.click();
-        setTimeout(() => {
-          if (process.browser) {
-            window.location.href = `${window.location.origin}`
-          }
-        }, 500)
+        setCheckOut(true)
       }
     })
   }, [order, queryBank.data, currency, bank, refPrint, create, localStorage, invoice, process, window, setInvoice, user])
+
+  const b = queryBank.data?.getbankList?.find(f => f?.id);
 
   return (
     <div className="max-w-[1200px] w-full p-3">
@@ -200,15 +199,17 @@ export function CheckoutScreen() {
                 invoice: invoice.count,
                 log: [
                   { date: new Date().toString(), text: 'Created' },
-                  { date: new Date().toString(), text: 'Last Updated' }
-                ]
+                  { date: new Date().toString(), text: 'Last Updated' },
+                  { date: new Date().toString(), text: 'Verifed', by: user }
+                ],
+                bankType: b?.name
               }}
               subtotal={order?.amount?.toString()}
               vat={vat + ''}
               total={totalAfterDiscount + ''}
               refbtn={refPrint}
             />
-            <button onClick={handleCheckout} className="text-white flex w-full justify-center rounded-md px-3 py-1.5 bg-emerald-600 shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">Checkout</button>
+            <button disabled={!!isCheckout} onClick={handleCheckout} className="text-white flex w-full justify-center rounded-md px-3 py-1.5 bg-emerald-600 shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">Checkout</button>
           </div>
         </Box>
       </Card>
