@@ -1242,6 +1242,17 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, display?: string | null, contact?: string | null, gender?: string | null, createdDate?: string | null, isActive?: boolean | null, ownerId?: string | null, startingAt?: string | null, bankName?: string | null, bankAcc?: string | null, bankType?: string | null, position?: string | null, baseSalary?: string | null, type?: string | null, profile?: string | null, username?: string | null, fromTime?: string | null, toTime?: string | null, role?: { __typename?: 'Role', name?: string | null, id?: number | null } | null } | null };
 
+export type ProductListQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  code?: InputMaybe<Scalars['String']['input']>;
+  schedule?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<FilterProduct>;
+}>;
+
+
+export type ProductListQuery = { __typename?: 'Query', productList?: Array<{ __typename?: 'Product', id?: number | null, code?: string | null, title?: string | null, status?: Status_Product | null, images?: string | null, type?: Array<Type_Product | null> | null, category?: { __typename?: 'Category', id?: number | null, name?: string | null } | null, sku?: Array<{ __typename?: 'SKU', id?: number | null, name?: string | null, price?: number | null, status?: Status_Product | null, discount?: number | null, image?: string | null } | null> | null } | null> | null };
+
 
 export const LoginDocument = gql`
     mutation login($username: String!, $password: String!) {
@@ -1335,3 +1346,70 @@ export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeSuspenseQueryHookResult = ReturnType<typeof useMeSuspenseQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const ProductListDocument = gql`
+    query productList($offset: Int, $limit: Int, $code: String, $schedule: Boolean, $filter: FilterProduct) {
+  productList(
+    offset: $offset
+    limit: $limit
+    code: $code
+    schedule: $schedule
+    filter: $filter
+  ) {
+    id
+    code
+    title
+    status
+    category {
+      id
+      name
+    }
+    images
+    sku {
+      id
+      name
+      price
+      status
+      discount
+      image
+    }
+    type
+  }
+}
+    `;
+
+/**
+ * __useProductListQuery__
+ *
+ * To run a query within a React component, call `useProductListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProductListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProductListQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *      code: // value for 'code'
+ *      schedule: // value for 'schedule'
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useProductListQuery(baseOptions?: Apollo.QueryHookOptions<ProductListQuery, ProductListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProductListQuery, ProductListQueryVariables>(ProductListDocument, options);
+      }
+export function useProductListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductListQuery, ProductListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProductListQuery, ProductListQueryVariables>(ProductListDocument, options);
+        }
+export function useProductListSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ProductListQuery, ProductListQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProductListQuery, ProductListQueryVariables>(ProductListDocument, options);
+        }
+export type ProductListQueryHookResult = ReturnType<typeof useProductListQuery>;
+export type ProductListLazyQueryHookResult = ReturnType<typeof useProductListLazyQuery>;
+export type ProductListSuspenseQueryHookResult = ReturnType<typeof useProductListSuspenseQuery>;
+export type ProductListQueryResult = Apollo.QueryResult<ProductListQuery, ProductListQueryVariables>;

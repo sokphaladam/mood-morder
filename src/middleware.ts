@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
       changeRequest.nextUrl.pathname = request.nextUrl.pathname + "/auth/login";
     }
 
-    console.log(changeRequest.nextUrl)
+    // console.log(changeRequest.nextUrl)
     
     return nextIntl(changeRequest)
   }

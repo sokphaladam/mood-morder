@@ -24,3 +24,26 @@ query me {
     toTime
   }
 }
+
+query productList($offset: Int, $limit: Int, $code: String, $schedule: Boolean, $filter: FilterProduct) {
+  productList(offset: $offset, limit: $limit, code: $code, schedule: $schedule, filter: $filter) {
+    id
+    code
+    title
+    status
+    category {
+      id
+      name
+    }
+    images
+    sku {
+      id
+      name
+      price
+      status
+      discount
+      image
+    }
+    type
+  }
+}
