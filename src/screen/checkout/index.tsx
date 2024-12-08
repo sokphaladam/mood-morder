@@ -116,6 +116,7 @@ export function CheckoutScreen() {
     setOrder({
       ...order,
       amount: String(calculateAmount(carts).toFixed(2)),
+      customerPaid: String(calculateAmount(carts).toFixed(2)),
       carts
     })
   }, [order])
@@ -130,6 +131,7 @@ export function CheckoutScreen() {
     setOrder({
       ...order,
       amount: String(calculateAmount(carts).toFixed(2)),
+      customerPaid: String(calculateAmount(carts).toFixed(2)),
       carts
     })
   }, [order]);
@@ -140,6 +142,7 @@ export function CheckoutScreen() {
     setOrder({
       ...order,
       amount: String(calculateAmount(carts).toFixed(2)),
+      customerPaid: String(calculateAmount(carts).toFixed(2)),
       carts
     })
   }, [order]);
