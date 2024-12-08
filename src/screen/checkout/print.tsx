@@ -322,9 +322,6 @@ export function PrintV2(props: Props) {
               </table>
               <div></div>
             </div>
-            {/* <div style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <QRcode value={`https://app.mood.international/?token=${props.order?.set}@${props.order?.uuid}`} />
-            </div> */}
             <div style={{ textAlign: 'center' }}>Contact us: 093988143</div>
             {!props.kitchen && <div style={{ textAlign: 'center' }}>Thank you, see you again!</div>}
           </div>

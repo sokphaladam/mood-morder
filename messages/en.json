@@ -25,6 +25,10 @@
     "paid_type": "Paid Type",
     "currency": "Currency",
     "checkout": "Checkout",
-    "customer_paid": "Amount customer paid"
+    "customer_paid": "Amount customer paid",
+    "order_id": "Order ID",
+    "order": "Order",
+    "cancel": "Cancel Order",
+    "reason": "Reason for cancellation"
   }
 }

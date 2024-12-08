@@ -5,3 +5,7 @@ mutation login($username: String!, $password: String!) {
 mutation createOrder($data: OrderInput) {
   createOrder(data: $data)
 }
+
+mutation changeOrderStatus($data: ChangeOrderInput) {
+  changeOrderStatus(data: $data)
+}

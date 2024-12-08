@@ -51,7 +51,9 @@ export function ProductItem(props: Props) {
         carts
       })
     }
-  }, [props, order, setOrder])
+  }, [props, order, setOrder]);
+
+  const haveSelectedOrder = order?.carts?.find(x => x.skuId === props.sku.id && x.productId === props.product.id);
 
   return (
     <div onClick={handleClick} className={`${props.product.status === Status_Product.Available && props.sku?.status === Status_Product.Available
@@ -60,7 +62,7 @@ export function ProductItem(props: Props) {
       } rounded-lg overflow-hidden justify-between items-center cursor-pointer ${props.product.status === Status_Product.Available && props.sku?.status === Status_Product.Available
         ? `hover:scale-105 hover:bg-gray-50`
         : ''
-      } transition-all`}>
+      } transition-all snap-center relative`}>
       <div className="w-full h-[150] flex flex-row justify-center items-center relative overflow-hidden">
         <Image
           src={props.sku?.image ? props.sku?.image + '' : props.product.images || ''}
@@ -104,6 +106,12 @@ export function ProductItem(props: Props) {
         )}
         <div className="max-h-[30px] truncate">{props.product.description}</div>
       </div>
+      {
+        !!haveSelectedOrder &&
+        <div className='bg-rose-900 rounded-full h-10 w-10 shadow-md shadow-rose-200 text-white flex flex-row items-center justify-center absolute top-1 right-1'>
+          {haveSelectedOrder.qty?.toString().padStart(2, '0')}
+        </div>
+      }
     </div>
   )
 }

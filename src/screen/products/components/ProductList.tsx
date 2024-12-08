@@ -7,7 +7,7 @@ interface Props {
 
 export function ProductList(props: Props) {
   return (
-    <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-2 p-4">
+    <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-2 p-4 scroll-smooth snap-mandatory snap-y">
       {
         props.products.flat().map((product: Product, index) => {
           return product?.sku?.map((sku, i: number) => {
