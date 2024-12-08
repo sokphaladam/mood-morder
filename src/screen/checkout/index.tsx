@@ -23,7 +23,7 @@ export function CheckoutScreen() {
 
   const [bank, setBank] = useState(1);
   const [currency, setCurreny] = useState('USD')
-  const [amountInput, setAmountInput] = useState(order?.customerPaid + '');
+  // const [amountInput, setAmountInput] = useState(order?.customerPaid + '');
   const [isCheckout, setCheckOut] = useState(false);
   const [error, setError] = useState<any>(null);
 
@@ -297,9 +297,8 @@ export function CheckoutScreen() {
                     labelHidden
                     prefix={currency === 'USD' ? '$' : '៛'}
                     selectTextOnFocus
-                    value={amountInput}
+                    value={order?.customerPaid?.toString()}
                     onChange={v => {
-                      setAmountInput(v);
                       if (!isNaN(Number(v))) {
                         setOrder({
                           ...order,
