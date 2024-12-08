@@ -46,6 +46,14 @@ export function CheckoutScreen() {
       return;
     }
 
+    if(Number(order?.customerPaid) < Number(order?.amount)) {
+      setError({
+        type: 'customerPaid',
+        message: 'Amount input not enough for checkout'
+      })
+      return 
+    }
+
     const b = queryBank.data?.getbankList?.find(f => f?.id);
     const input: OrderInput = {
       set: 'QO',
