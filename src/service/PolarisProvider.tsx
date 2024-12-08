@@ -51,7 +51,7 @@ export function PolarisProvider({ children }: React.PropsWithChildren<any>) {
         onNavigationDismiss={toggleMobileNavigationActive}
         navigation={null}
       >
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col h-screen">
           {config_app.public.assets.dev === 'development' && (
             <div className="bg-sky-800 w-full p-1 text-white text-center text-xs sticky bottom-0">Developer Mode</div>
           )}

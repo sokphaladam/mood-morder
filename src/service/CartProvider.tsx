@@ -8,7 +8,7 @@ interface CartInput extends CartItemInput {
 }
 
 interface orderType extends OrderInput {
-  carts: CartInput[]
+  carts?: CartInput[]
 }
 
 interface Props {

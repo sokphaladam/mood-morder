@@ -66,3 +66,66 @@ query getbankList {
     name
   }
 }
+
+query order($token: String, $orderId: Int) {
+  order(token: $token, id: $orderId) {
+    id
+    address
+    status
+    bankId
+    customerPaid
+    name
+    paid
+    set
+    total
+    uuid
+    note
+    code
+    discount
+    vat
+    person
+    currency
+    invoice
+    bankType
+    log {
+      date
+      text
+      by {
+        id
+        display
+      }
+    }
+    deliveryCode
+    delivery {
+      id
+      name
+      contact
+    }
+    items {
+      createdDate
+      id
+      qty
+      sku {
+        price
+        discount
+        id
+        unit
+        name
+        image
+      }
+      product {
+        title
+        images
+        code
+        description
+        id
+      }
+      price
+      discount
+      status
+      addons
+      remark
+      isPrint
+    }
+  }
+}

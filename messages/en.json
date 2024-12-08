@@ -24,6 +24,7 @@
     "return": "Return to Customer",
     "paid_type": "Paid Type",
     "currency": "Currency",
-    "checkout": "Checkout"
+    "checkout": "Checkout",
+    "customer_paid": "Amount customer paid"
   }
 }

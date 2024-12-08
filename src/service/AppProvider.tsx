@@ -7,6 +7,7 @@ import { CartProvider } from "./CartProvider";
 import { PopCart } from "@/components/ui/PopCart";
 import { InvoiceProvider } from "./InvoiceProvider";
 import { SettingProvider } from "./SettingProvider";
+import { Navigation } from "@/components/ui/Navigation";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function AppProvider({ children }: React.PropsWithChildren<any>) {
@@ -17,7 +18,14 @@ export function AppProvider({ children }: React.PropsWithChildren<any>) {
           <PolarisProvider>
             <InvoiceProvider>
               <CartProvider>
-                <CustomToastMultiple>{children}</CustomToastMultiple>
+                <CustomToastMultiple>
+                  <div className="h-full overflow-x-hidden">
+                    <div className="mb-14">
+                      {children}
+                    </div>
+                    <Navigation />
+                  </div>
+                </CustomToastMultiple>
                 <PopCart />
               </CartProvider>
             </InvoiceProvider>

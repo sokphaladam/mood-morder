@@ -232,7 +232,7 @@ export type Mutation = {
   createDelivery?: Maybe<Scalars['Boolean']['output']>;
   createHoliday?: Maybe<Scalars['Boolean']['output']>;
   createLeave?: Maybe<Scalars['Boolean']['output']>;
-  createOrder?: Maybe<Scalars['Boolean']['output']>;
+  createOrder?: Maybe<Scalars['Int']['output']>;
   createOrderSchedule?: Maybe<Scalars['Boolean']['output']>;
   createOverTime?: Maybe<Scalars['Boolean']['output']>;
   createPosition?: Maybe<Scalars['Boolean']['output']>;
@@ -606,6 +606,7 @@ export type OrderInput = {
   discount?: InputMaybe<Scalars['Float']['input']>;
   invoice?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
   set?: InputMaybe<Scalars['String']['input']>;
   uuid?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1249,7 +1250,7 @@ export type CreateOrderMutationVariables = Exact<{
 }>;
 
 
-export type CreateOrderMutation = { __typename?: 'Mutation', createOrder?: boolean | null };
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder?: number | null };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1281,6 +1282,14 @@ export type GetbankListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetbankListQuery = { __typename?: 'Query', getbankList?: Array<{ __typename?: 'BankInfo', id?: number | null, name?: string | null } | null> | null };
+
+export type OrderQueryVariables = Exact<{
+  token?: InputMaybe<Scalars['String']['input']>;
+  orderId?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type OrderQuery = { __typename?: 'Query', order?: { __typename?: 'Order', id?: number | null, address?: string | null, status?: StatusOrder | null, bankId?: number | null, customerPaid?: string | null, name?: string | null, paid?: string | null, set?: string | null, total?: string | null, uuid?: string | null, note?: string | null, code?: string | null, discount?: number | null, vat?: string | null, person?: number | null, currency?: string | null, invoice?: number | null, bankType?: string | null, deliveryCode?: string | null, log?: Array<{ __typename?: 'OrderLog', date?: string | null, text?: string | null, by?: { __typename?: 'User', id: number, display?: string | null } | null } | null> | null, delivery?: { __typename?: 'Delivery', id?: number | null, name?: string | null, contact?: string | null } | null, items?: Array<{ __typename?: 'OrderItem', createdDate?: string | null, id?: number | null, qty?: number | null, price?: number | null, discount?: number | null, status?: StatusOrderItem | null, addons?: string | null, remark?: string | null, isPrint?: boolean | null, sku?: { __typename?: 'SKU', price?: number | null, discount?: number | null, id?: number | null, unit?: string | null, name?: string | null, image?: string | null } | null, product?: { __typename?: 'Product', title?: string | null, images?: string | null, code?: string | null, description?: string | null, id?: number | null } | null } | null> | null } | null };
 
 
 export const LoginDocument = gql`
@@ -1591,3 +1600,101 @@ export type GetbankListQueryHookResult = ReturnType<typeof useGetbankListQuery>;
 export type GetbankListLazyQueryHookResult = ReturnType<typeof useGetbankListLazyQuery>;
 export type GetbankListSuspenseQueryHookResult = ReturnType<typeof useGetbankListSuspenseQuery>;
 export type GetbankListQueryResult = Apollo.QueryResult<GetbankListQuery, GetbankListQueryVariables>;
+export const OrderDocument = gql`
+    query order($token: String, $orderId: Int) {
+  order(token: $token, id: $orderId) {
+    id
+    address
+    status
+    bankId
+    customerPaid
+    name
+    paid
+    set
+    total
+    uuid
+    note
+    code
+    discount
+    vat
+    person
+    currency
+    invoice
+    bankType
+    log {
+      date
+      text
+      by {
+        id
+        display
+      }
+    }
+    deliveryCode
+    delivery {
+      id
+      name
+      contact
+    }
+    items {
+      createdDate
+      id
+      qty
+      sku {
+        price
+        discount
+        id
+        unit
+        name
+        image
+      }
+      product {
+        title
+        images
+        code
+        description
+        id
+      }
+      price
+      discount
+      status
+      addons
+      remark
+      isPrint
+    }
+  }
+}
+    `;
+
+/**
+ * __useOrderQuery__
+ *
+ * To run a query within a React component, call `useOrderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrderQuery({
+ *   variables: {
+ *      token: // value for 'token'
+ *      orderId: // value for 'orderId'
+ *   },
+ * });
+ */
+export function useOrderQuery(baseOptions?: Apollo.QueryHookOptions<OrderQuery, OrderQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrderQuery, OrderQueryVariables>(OrderDocument, options);
+      }
+export function useOrderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrderQuery, OrderQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrderQuery, OrderQueryVariables>(OrderDocument, options);
+        }
+export function useOrderSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<OrderQuery, OrderQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<OrderQuery, OrderQueryVariables>(OrderDocument, options);
+        }
+export type OrderQueryHookResult = ReturnType<typeof useOrderQuery>;
+export type OrderLazyQueryHookResult = ReturnType<typeof useOrderLazyQuery>;
+export type OrderSuspenseQueryHookResult = ReturnType<typeof useOrderSuspenseQuery>;
+export type OrderQueryResult = Apollo.QueryResult<OrderQuery, OrderQueryVariables>;

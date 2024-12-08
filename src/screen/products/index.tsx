@@ -20,7 +20,7 @@ export function ProductScreen() {
   }, {});
 
   return (
-    <div className="max-w-[1200px] w-full">
+    <div className="max-w-[1200px] w-full flex flex-1 flex-col justify-center mx-auto">
       <div><Category productGroup={groups} selected={category} onSelected={setCategory} /></div>
       <div>
         <ProductList products={groups ? (category === null
