@@ -249,6 +249,7 @@ export type Mutation = {
   markOrderItemStatus?: Maybe<Scalars['Boolean']['output']>;
   peopleInOrder?: Maybe<Scalars['Boolean']['output']>;
   resetPassword?: Maybe<Scalars['Boolean']['output']>;
+  setItemShowOn?: Maybe<Scalars['Boolean']['output']>;
   setTypePaymentOrder?: Maybe<Scalars['Boolean']['output']>;
   signatureOrder?: Maybe<Scalars['Boolean']['output']>;
   swapOrderTable?: Maybe<Scalars['Boolean']['output']>;
@@ -423,6 +424,13 @@ export type MutationResetPasswordArgs = {
   oldPassowrd: Scalars['String']['input'];
   password: Scalars['String']['input'];
   username: Scalars['String']['input'];
+};
+
+
+export type MutationSetItemShowOnArgs = {
+  productId: Scalars['Int']['input'];
+  skuId?: InputMaybe<Scalars['Int']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -976,6 +984,7 @@ export type QueryProductArgs = {
 
 export type QueryProductListArgs = {
   code?: InputMaybe<Scalars['String']['input']>;
+  enabledOn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   filter?: InputMaybe<FilterProduct>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -1080,6 +1089,7 @@ export type Role = {
 export type Sku = {
   __typename?: 'SKU';
   discount?: Maybe<Scalars['Float']['output']>;
+  enabledOn?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
@@ -1271,10 +1281,11 @@ export type ProductListQueryVariables = Exact<{
   code?: InputMaybe<Scalars['String']['input']>;
   schedule?: InputMaybe<Scalars['Boolean']['input']>;
   filter?: InputMaybe<FilterProduct>;
+  enabledOn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>>;
 }>;
 
 
-export type ProductListQuery = { __typename?: 'Query', productList?: Array<{ __typename?: 'Product', id?: number | null, code?: string | null, title?: string | null, status?: Status_Product | null, images?: string | null, type?: Array<Type_Product | null> | null, category?: { __typename?: 'Category', id?: number | null, name?: string | null } | null, sku?: Array<{ __typename?: 'SKU', id?: number | null, name?: string | null, price?: number | null, status?: Status_Product | null, discount?: number | null, image?: string | null } | null> | null } | null> | null };
+export type ProductListQuery = { __typename?: 'Query', productList?: Array<{ __typename?: 'Product', id?: number | null, code?: string | null, title?: string | null, status?: Status_Product | null, images?: string | null, type?: Array<Type_Product | null> | null, category?: { __typename?: 'Category', id?: number | null, name?: string | null } | null, sku?: Array<{ __typename?: 'SKU', id?: number | null, name?: string | null, price?: number | null, status?: Status_Product | null, discount?: number | null, image?: string | null, enabledOn?: string | null } | null> | null } | null> | null };
 
 export type CategoryListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1470,13 +1481,14 @@ export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeSuspenseQueryHookResult = ReturnType<typeof useMeSuspenseQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const ProductListDocument = gql`
-    query productList($offset: Int, $limit: Int, $code: String, $schedule: Boolean, $filter: FilterProduct) {
+    query productList($offset: Int, $limit: Int, $code: String, $schedule: Boolean, $filter: FilterProduct, $enabledOn: [String]) {
   productList(
     offset: $offset
     limit: $limit
     code: $code
     schedule: $schedule
     filter: $filter
+    enabledOn: $enabledOn
   ) {
     id
     code
@@ -1494,6 +1506,7 @@ export const ProductListDocument = gql`
       status
       discount
       image
+      enabledOn
     }
     type
   }
@@ -1517,6 +1530,7 @@ export const ProductListDocument = gql`
  *      code: // value for 'code'
  *      schedule: // value for 'schedule'
  *      filter: // value for 'filter'
+ *      enabledOn: // value for 'enabledOn'
  *   },
  * });
  */

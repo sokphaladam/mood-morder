@@ -6,7 +6,14 @@ import { ProductList } from "./components/ProductList";
 
 export function ProductScreen() {
   const [category, setCategory] = useState(null);
-  const { data } = useProductListQuery();
+  const { data } = useProductListQuery({
+    variables: {
+      limit: 10000,
+      offset: 0,
+      enabledOn: ['QORDER', 'ALL'],
+      schedule: true
+    }
+  });
 
   const groups = data?.productList?.reduce((a: any, b: any) => {
     const key = b?.category?.name;

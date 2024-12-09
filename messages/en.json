@@ -30,5 +30,11 @@
     "order": "Order",
     "cancel": "Cancel Order",
     "reason": "Reason for cancellation"
+  },
+  "SettingPage": {
+    "language": "Language",
+    "logout": "Logout",
+    "khmer": "Khmer",
+    "english": "English"
   }
 }
