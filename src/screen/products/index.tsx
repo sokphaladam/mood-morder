@@ -1,7 +1,7 @@
 'use client';
 import { Category } from "./components/Category";
 import { useState } from "react";
-import { useProductListQuery } from "@/gql/graphql";
+import { Status_Product, Type_Product, useProductListQuery } from "@/gql/graphql";
 import { ProductList } from "./components/ProductList";
 
 export function ProductScreen() {
