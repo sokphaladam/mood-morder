@@ -11,7 +11,11 @@ export function ProductScreen() {
       limit: 10000,
       offset: 0,
       enabledOn: ['QORDER', 'ALL'],
-      schedule: true
+      schedule: true,
+      filter: {
+        type: [Type_Product.Production],
+        status: [Status_Product.Available, Status_Product.OutOfStock, Status_Product.TimeOut],
+      },
     }
   });
 
